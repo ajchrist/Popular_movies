@@ -229,9 +229,11 @@ public class MainActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<List<PopularMovie>> loader, List<PopularMovie> data) {
         movieAdapter.setmPopularMovies(data);
         moviesBinding.swipe.setRefreshing(false);
+            if (data != null){
         if (data.isEmpty() && getSharedPrefs().getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular_value)).equals(getString(R.string.pref_sort_favorites))){
             Toast.makeText(this, getString(R.string.no_favorites), Toast.LENGTH_LONG).show();
         }
+            }
     }
 
     @Override
