@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="end">12dp</dimen>
+    <dimen name="top">8dp</dimen>
+    <dimen name="width">0dp</dimen>
+    <dimen name="start">8dp</dimen>
+    <dimen name="startTitleLand">12dp</dimen>
+    <dimen name="titleLand">80dp</dimen>
+    <dimen name="bottom">8dp</dimen>
+</resources>

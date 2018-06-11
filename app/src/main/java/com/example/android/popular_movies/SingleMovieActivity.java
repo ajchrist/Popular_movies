@@ -42,7 +42,7 @@ import java.util.List;
 // based off the detailactivty.java from sunshine
 // where a single day's weather is received and shown
 
-public class SingleMovie extends AppCompatActivity implements
+public class SingleMovieActivity extends AppCompatActivity implements
         VideoAdapter.VideoAdapterOnClickHandler,
         LoaderManager.LoaderCallbacks<List<MovieVideo>> {
 
@@ -71,7 +71,9 @@ public class SingleMovie extends AppCompatActivity implements
         mSingleMovie.Favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+
                 editDB(checked, mId, mTitle, mPosterPath, mOverview, mReleaseDate, mVoteAverage);
+
             }
         });
     }
@@ -101,7 +103,7 @@ public class SingleMovie extends AppCompatActivity implements
 
     public void load() {
         if (this.isNetworkAvailable()) {
-            getSupportLoaderManager().restartLoader(MOVIE_VIDEO_ID, null, SingleMovie.this);
+            getSupportLoaderManager().restartLoader(MOVIE_VIDEO_ID, null, SingleMovieActivity.this);
         } else {
             Toast.makeText(this, getString(R.string.not_connected_error), Toast.LENGTH_LONG).show();
             Toast.makeText(this, getString(R.string.reconnect), Toast.LENGTH_LONG).show();
@@ -142,7 +144,8 @@ public class SingleMovie extends AppCompatActivity implements
                 null,
                 null,
                 null);
-        if (inDB.getCount() > 0) {
+        int i = inDB.getCount();
+        if (i > 0) {
             mSingleMovie.Favorite.setChecked(true);
         }
         inDB.close();
@@ -184,7 +187,7 @@ public class SingleMovie extends AppCompatActivity implements
     public Loader<List<MovieVideo>> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<List<MovieVideo>>(this) {
 
-            Context context = SingleMovie.this;
+            Context context = SingleMovieActivity.this;
             List<MovieVideo> movieVideos;
 
             @Override

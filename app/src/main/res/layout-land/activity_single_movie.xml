@@ -15,10 +15,10 @@
 
             <ImageView
                 android:id="@+id/iv_single_movie_poster"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/start"
+                android:layout_marginTop="@dimen/top"
                 android:contentDescription="@string/movie_poster"
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintStart_toStartOf="parent"
@@ -27,9 +27,9 @@
 
             <TextView
                 android:id="@+id/label_overview"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/top"
                 android:text="@string/pref_sort_label_overview"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="@+id/label_rating"
@@ -37,10 +37,10 @@
 
             <TextView
                 android:id="@+id/tv_single_movie_description"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/end"
+                android:layout_marginTop="@dimen/top"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/label_overview"
@@ -49,9 +49,9 @@
 
             <TextView
                 android:id="@+id/label_rating"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/top"
                 android:text="@string/pref_sort_label_rating"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="@+id/label_release_date"
@@ -59,10 +59,10 @@
 
             <TextView
                 android:id="@+id/tv_single_movie_rating"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/end"
+                android:layout_marginTop="@dimen/top"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -72,10 +72,10 @@
 
             <TextView
                 android:id="@+id/label_title"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/startTitleLand"
+                android:layout_marginTop="@dimen/top"
                 android:text="@string/pref_sort_label_title"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toEndOf="@+id/iv_single_movie_poster"
@@ -83,10 +83,10 @@
 
             <TextView
                 android:id="@+id/tv_single_movie_title"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginEnd="@dimen/end"
+                android:layout_marginStart="@dimen/titleLand"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/label_title"
@@ -95,9 +95,9 @@
 
             <TextView
                 android:id="@+id/label_release_date"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/top"
                 android:text="@string/pref_sort_label_release_date"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="@+id/label_title"
@@ -105,10 +105,10 @@
 
             <TextView
                 android:id="@+id/tv_single_movie_release_date"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/end"
+                android:layout_marginTop="@dimen/top"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_single_movie_title"
@@ -117,21 +117,21 @@
 
             <TextView
                 android:id="@+id/label_trailers"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/top"
                 android:text="@string/label_trailers"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="@+id/tv_single_movie_description"
                 app:layout_constraintTop_toBottomOf="@+id/tv_single_movie_description" />
 
             <android.support.v7.widget.RecyclerView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/width"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:id="@+id/v_recyclerview"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/top"
+                android:layout_marginEnd="@dimen/end"
                 app:layout_constraintEnd_toEndOf="@+id/tv_single_movie_description"
                 app:layout_constraintStart_toStartOf="@+id/label_trailers"
                 app:layout_constraintTop_toBottomOf="@+id/label_trailers"/>
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/top"
                 android:buttonTint="@color/colorAccent"
                 android:text="@string/favorite"
                 android:textColor="@color/colorAccent"

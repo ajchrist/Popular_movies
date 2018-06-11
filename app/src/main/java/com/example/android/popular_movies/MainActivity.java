@@ -28,9 +28,11 @@ import com.example.android.popular_movies.db.FavoriteMoviesContract;
 import com.example.android.popular_movies.utilities.MovieAdapter;
 import com.example.android.popular_movies.utilities.MovieNetworkUtil;
 import com.example.android.popular_movies.utilities.MovieParser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements
         LoaderCallbacks<List<PopularMovie>>,
         MovieAdapter.MovieAdapterOnClickHandler,
         SharedPreferences.OnSharedPreferenceChangeListener,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
     private MovieAdapter movieAdapter;
     private SharedPreferences mSharedPrefs;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements
     private SQLiteDatabase mDB;
     private static final int MOVIE_LOADER_ID = 0;
 
-    public SharedPreferences getSharedPrefs (){
+    public SharedPreferences getSharedPrefs() {
         return mSharedPrefs;
     }
 
@@ -80,12 +82,12 @@ public class MainActivity extends AppCompatActivity implements
         super.onPostResume();
     }
 
-    private void reorient(){
+    private void reorient() {
         GridLayoutManager mLayoutManager;
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
             mLayoutManager = new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
             moviesBinding.movieRecyclerview.setLayoutManager(mLayoutManager);
-        } else if (getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT){
+        } else if (getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
             mLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
             moviesBinding.movieRecyclerview.setLayoutManager(mLayoutManager);
         }
@@ -115,21 +117,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_menu, menu);
@@ -155,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements
     //start activity that will show a single movie
     @Override
     public void onClick(PopularMovie movie) {
-        Intent startSingleMovieActivity = new Intent(this, SingleMovie.class);
+        Intent startSingleMovieActivity = new Intent(this, SingleMovieActivity.class);
         startSingleMovieActivity.putExtra(getString(R.string.id), movie.getId());
         startSingleMovieActivity.putExtra(getString(R.string.title), movie.getTitle());
         startSingleMovieActivity.putExtra(getString(R.string.poster_path), movie.getImageURL());
@@ -176,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
             protected void onStartLoading() {
                 if (popularMovies != null) {
                     deliverResult(popularMovies);
-                }else {
+                } else {
                     forceLoad();
                 }
             }
@@ -192,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements
                 popularMovies = new ArrayList<>();
                 SharedPreferences sharedPreferences = getSharedPrefs();
                 String setting = sharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular_value));
-                if (setting.equals(getString(R.string.pref_sort_favorites))){
+                if (setting.equals(getString(R.string.pref_sort_favorites))) {
                     Cursor mCursor = mDB.query(FavoriteMoviesContract.FavoriteMovieEntry.TABLE_NAME,
                             null,
                             null,
@@ -201,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements
                             null,
                             null);
                     MovieParser parser = new MovieParser(mCursor);
-                    if (mCursor.getCount() > 0){
-                        for (int i = 0; i < mCursor.getCount(); i++){
+                    if (mCursor.getCount() > 0) {
+                        for (int i = 0; i < mCursor.getCount(); i++) {
                             popularMovies.add(parser.parseCursor(i));
                         }
                     }
@@ -229,11 +216,11 @@ public class MainActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<List<PopularMovie>> loader, List<PopularMovie> data) {
         movieAdapter.setmPopularMovies(data);
         moviesBinding.swipe.setRefreshing(false);
-            if (data != null){
-        if (data.isEmpty() && getSharedPrefs().getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular_value)).equals(getString(R.string.pref_sort_favorites))){
-            Toast.makeText(this, getString(R.string.no_favorites), Toast.LENGTH_LONG).show();
-        }
+        if (data != null) {
+            if (data.isEmpty() && getSharedPrefs().getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular_value)).equals(getString(R.string.pref_sort_favorites))) {
+                Toast.makeText(this, getString(R.string.no_favorites), Toast.LENGTH_LONG).show();
             }
+        }
     }
 
     @Override

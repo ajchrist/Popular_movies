@@ -30,7 +30,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".SingleMovie"
+            android:name=".SingleMovieActivity"
             android:label="@string/action_single_movie"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -39,10 +39,10 @@
         </activity>
         <activity android:name=".ReviewActivity"
             android:label="@string/action_single_movie_review"
-            android:parentActivityName=".SingleMovie">
+            android:parentActivityName=".SingleMovieActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SingleMovie" />
+                android:value=".SingleMovieActivity" />
         </activity>
         <!-- Our ContentProvider
 https://github.com/ajchrist/ud851-Sunshine/blob/student/S09.03-Solution-ContentProviderDelete/app/src/main/AndroidManifest.xml
