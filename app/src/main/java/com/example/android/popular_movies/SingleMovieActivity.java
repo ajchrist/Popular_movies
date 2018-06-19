@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Toast;
-
 import com.example.android.popular_movies.data.MovieVideo;
 import com.example.android.popular_movies.databinding.ActivitySingleMovieBinding;
 import com.example.android.popular_movies.db.FavoriteMovieDatabaseHelper;
@@ -30,11 +28,9 @@ import com.example.android.popular_movies.utilities.MovieNetworkUtil;
 import com.example.android.popular_movies.utilities.MovieParser;
 import com.example.android.popular_movies.utilities.VideoAdapter;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +48,6 @@ public class SingleMovieActivity extends AppCompatActivity implements
     private static final int MOVIE_VIDEO_ID = 2;
     //https://github.com/ajchrist/ud851-Exercises/blob/student/Lesson07-Waitlist/T07.05-Solution-AddGuests/app/src/main/java/com/example/android/waitlist/MainActivity.java
     //is my guide to implementing adding to db
-    private SQLiteDatabase mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +55,6 @@ public class SingleMovieActivity extends AppCompatActivity implements
         videoAdapter = new VideoAdapter(this, this);
         mSingleMovie = DataBindingUtil.setContentView(this, R.layout.activity_single_movie);
         FavoriteMovieDatabaseHelper dbHelper = new FavoriteMovieDatabaseHelper(this);
-        mDB = dbHelper.getWritableDatabase();
         Intent mStartingIntent = getIntent();
         mId = mStartingIntent.getStringExtra(getString(R.string.id));
         mTitle = mStartingIntent.getStringExtra(getString(R.string.title));
@@ -87,12 +81,13 @@ public class SingleMovieActivity extends AppCompatActivity implements
             values.put(FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_POSTER_PATH, posterPath);
             values.put(FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_RELEASE_DATE, releaseDate);
             values.put(FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_RATING, voteAverage);
-            mDB.insert(FavoriteMoviesContract.FavoriteMovieEntry.TABLE_NAME, null, values);
+            // insert with content provider
+            MovieNetworkUtil.providerInsert(this, values);
         } else {
-            mDB.delete(FavoriteMoviesContract.FavoriteMovieEntry.TABLE_NAME,
+            // delete with content provider
+            MovieNetworkUtil.providerDelete(this,
                     FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_ID + " LIKE " + id,
                     null);
-
         }
     }
 
@@ -136,12 +131,10 @@ public class SingleMovieActivity extends AppCompatActivity implements
 
     private void checkInDB() {
         Cursor inDB;
-        inDB = mDB.query(
-                FavoriteMoviesContract.FavoriteMovieEntry.TABLE_NAME,
+        // query with content provider
+        inDB = MovieNetworkUtil.providerQuery(this,
                 new String[]{FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_ID},
                 FavoriteMoviesContract.FavoriteMovieEntry.COLUMN_MOVIE_ID + " LIKE " + mId,
-                null,
-                null,
                 null,
                 null);
         int i = inDB.getCount();

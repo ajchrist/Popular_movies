@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.android.popular_movies.R;
 import com.example.android.popular_movies.data.MovieVideo;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,15 +3,15 @@ package com.example.android.popular_movies.utilities;
 // adapted from NetworkUtil.java from T05b.03-exercise-PolishAsyncTask
 // from the toybox in stage 1
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
-
 import com.example.android.popular_movies.R;
-
+import com.example.android.popular_movies.db.FavoriteMoviesContract;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -70,6 +70,26 @@ public class MovieNetworkUtil {
         } finally {
             urlConnection.disconnect();
         }
+    }
+
+    // new method to abstract the use of the content provider query method
+    public static Cursor providerQuery(Context context, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        return context.getContentResolver().query(FavoriteMoviesContract.FavoriteMovieEntry.CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder,
+                null);
+    }
+
+    // new method to abstract the use of the content provider insert method
+    public static void providerInsert(Context context, ContentValues contentValues){
+        context.getContentResolver().insert(FavoriteMoviesContract.FavoriteMovieEntry.CONTENT_URI, contentValues);
+    }
+
+    // new method to abstract the use of the content provider delete method
+    public static void providerDelete(Context context, String selection, String[] selectionArgs){
+        context.getContentResolver().delete(FavoriteMoviesContract.FavoriteMovieEntry.CONTENT_URI, selection, selectionArgs);
     }
 
 }

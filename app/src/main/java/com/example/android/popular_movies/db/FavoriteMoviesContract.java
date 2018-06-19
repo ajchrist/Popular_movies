@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public class FavoriteMoviesContract {
     public static final String CONTENT_AUTHORITY = "com.example.android.popular_movies";
 
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     public static final String PATH_FAVORITES = "favorites";
 

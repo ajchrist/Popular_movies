@@ -2,14 +2,11 @@ package com.example.android.popular_movies.utilities;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Movie;
-
 import com.example.android.popular_movies.R;
 import com.example.android.popular_movies.data.MovieReview;
 import com.example.android.popular_movies.data.MovieVideo;
 import com.example.android.popular_movies.data.PopularMovie;
 import com.example.android.popular_movies.db.FavoriteMoviesContract;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

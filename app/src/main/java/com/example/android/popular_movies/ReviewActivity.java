@@ -12,16 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.android.popular_movies.data.MovieReview;
 import com.example.android.popular_movies.databinding.ActivityReviewBinding;
 import com.example.android.popular_movies.utilities.MovieNetworkUtil;
 import com.example.android.popular_movies.utilities.MovieParser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

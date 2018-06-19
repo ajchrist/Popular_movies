@@ -5,29 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_video_poster"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/width"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="@dimen/bottom"
+            android:layout_marginStart="@dimen/start"
+            android:layout_marginTop="@dimen/top"
             android:contentDescription="@string/video_poster"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_video_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/colorAccent"
+            android:layout_marginEnd="@dimen/end"
+            android:layout_marginStart="@dimen/start"
+            android:layout_marginTop="@dimen/top"
             android:contentDescription="@string/name"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_video_poster"
             app:layout_constraintTop_toTopOf="@+id/iv_video_poster"
             tools:text="no name" />

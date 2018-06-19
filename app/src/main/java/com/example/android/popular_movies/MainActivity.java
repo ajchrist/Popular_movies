@@ -1,8 +1,6 @@
 package com.example.android.popular_movies;
-
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,23 +18,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.android.popular_movies.data.PopularMovie;
 import com.example.android.popular_movies.databinding.ActivityMoviesBinding;
-import com.example.android.popular_movies.db.FavoriteMovieDatabaseHelper;
-import com.example.android.popular_movies.db.FavoriteMoviesContract;
 import com.example.android.popular_movies.utilities.MovieAdapter;
 import com.example.android.popular_movies.utilities.MovieNetworkUtil;
 import com.example.android.popular_movies.utilities.MovieParser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
@@ -49,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements
     private MovieAdapter movieAdapter;
     private SharedPreferences mSharedPrefs;
     private ActivityMoviesBinding moviesBinding;
-    private SQLiteDatabase mDB;
     private static final int MOVIE_LOADER_ID = 0;
 
     public SharedPreferences getSharedPrefs() {
@@ -59,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FavoriteMovieDatabaseHelper dbHelper = new FavoriteMovieDatabaseHelper(this);
-        mDB = dbHelper.getReadableDatabase();
         movieAdapter = new MovieAdapter(this, this);
         setContentView(R.layout.activity_movies);
         moviesBinding = DataBindingUtil.setContentView(this, R.layout.activity_movies);
@@ -180,13 +169,8 @@ public class MainActivity extends AppCompatActivity implements
                 SharedPreferences sharedPreferences = getSharedPrefs();
                 String setting = sharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular_value));
                 if (setting.equals(getString(R.string.pref_sort_favorites))) {
-                    Cursor mCursor = mDB.query(FavoriteMoviesContract.FavoriteMovieEntry.TABLE_NAME,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null);
+                    //replaced direct sqllite call with the content provider query
+                    Cursor mCursor = MovieNetworkUtil.providerQuery(context, null, null, null, null);
                     MovieParser parser = new MovieParser(mCursor);
                     if (mCursor.getCount() > 0) {
                         for (int i = 0; i < mCursor.getCount(); i++) {
